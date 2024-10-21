@@ -31,13 +31,22 @@
             margin-top: 20px;
         }
         .small-text {
-            font-size: 0.3em;
+            font-size: 0.8em;
             color: #A5B4FC; /* Lżejszy kolor na mały druczek */
+        }
+        #quote {
+            font-style: italic;
+            font-size: 1.2em;
+            margin: 30px 0;
         }
     </style>
 </head>
 <body>
     <h1>Dziękuję pachołki za wasze folołki&lt;3</h1>
+    
+    <!-- Cytaty zmieniające się automatycznie -->
+    <p id="quote"></p>
+    
     <div class="nagrody">
         <h2>NAGRODA GŁÓWNA:</h2>
         <p>Uścisk dłoni</p>
@@ -58,7 +67,63 @@
         <p class="small-text">*Nagroda dla specjalnych będzie wybierana na podstawie najgorszej odpowiedzi na pytanie "Dlaczego to Ty powinieneś wygrać?".</p>
     </div>
 
+    <!-- Formularz z Google Forms -->
     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd-ujoluco_W3dfx_bC1Ng9jU7_Qrjki4dNOh6uG8wYmvzfnQ/viewform?embedded=true" 
             width="640" height="764" frameborder="0" marginheight="0" marginwidth="0">Ładuję…</iframe>
+    
+    <!-- JavaScript do cytatów i podziękowania -->
+    <script>
+        // Cytaty, które będą się zmieniać
+        const quotes = [
+            "Gdy nie stać Cię na Opla, zrób z wysokości hopla...skok ze spadochronem, fajny sport ekstremalny",
+            "Twym samochodem nie jest Opel? Ale z Ciebie CWL. W sensie tablice rejestracyjne pewnie masz na powiat Włocławski",
+            "Gdy nie masz Opla, leci Ci z oczu kropla",
+            "Życie jest jak kosmos, jesteś w czarnej dupie",
+            "Twoje atomy uformowały się wewnątrz jakiejś gwiazdy, jesteś gwiazdeczką, jedyną w swoim rodzaju. Czasem wkurwiasz",
+            "Kiedy księżyc świeci, spać się kładą wszystkie dzieci, a Majkel wychodzi z nory zrobić zdjęcia i spadać spać",
+            "Majkel kupił Opla, a Ty?",
+            "Gdy Majkel robi zdjęcia nieba, Ziemia obraca się wokół własnej osi. A ty dalej jesteś cwelem",
+            "Majkel ma Opla i robi zdjęcia gwiazd. Teraz ma 5-dniowy weekend"
+        ];
+
+        let quoteIndex = 0;
+
+        function displayQuote() {
+            document.getElementById("quote").innerText = quotes[quoteIndex];
+            quoteIndex = (quoteIndex + 1) % quotes.length;
+        }
+
+        // Wyświetlaj nowy cytat co 10 sekund
+        setInterval(displayQuote, 10000);
+
+        // Pokaż pierwszy cytat od razu
+        window.onload = displayQuote;
+
+        // Obsługa wysyłki formularza z podziękowaniem
+        document.querySelector("iframe").addEventListener("load", function() {
+            const iframeDocument = this.contentDocument || this.contentWindow.document;
+
+            // Nasłuchiwanie na ewentualne zmiany, np. po wysłaniu formularza
+            iframeDocument.addEventListener("submit", function() {
+                // Tworzymy element podziękowania na całą stronę
+                const fullScreenMessage = document.createElement("div");
+                fullScreenMessage.style.position = "fixed";
+                fullScreenMessage.style.top = "0";
+                fullScreenMessage.style.left = "0";
+                fullScreenMessage.style.width = "100%";
+                fullScreenMessage.style.height = "100%";
+                fullScreenMessage.style.backgroundColor = "black";
+                fullScreenMessage.style.color = "white";
+                fullScreenMessage.style.display = "flex";
+                fullScreenMessage.style.justifyContent = "center";
+                fullScreenMessage.style.alignItems = "center";
+                fullScreenMessage.style.fontSize = "24px";
+                fullScreenMessage.innerHTML = "Gratulacje! Jesteś teraz oficjalnym pachołkiem Majkela! Czekaj na nagrody… albo nie, kto wie ;)";
+                
+                // Dodajemy element do strony
+                document.body.appendChild(fullScreenMessage);
+            });
+        });
+    </script>
 </body>
 </html>
