@@ -4,78 +4,134 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Majkeloteria</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #1E3A8A; /* Granatowy kolor tła */
+            background-color: #1E3A8A;
             color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
         }
+
         h1 {
-            color: #60A5FA; /* Jasny niebieski */
+            color: #60A5FA;
             font-size: 3em;
             margin-bottom: 20px;
         }
-        .nagrody {
-            background-color: #2563EB; /* Błękitny kolor nagród */
+
+        .container {
+            width: 100%;
+            max-width: 900px;
             padding: 20px;
-            border-radius: 10px;
-            display: inline-block;
+            text-align: center;
+        }
+
+        .nagrody {
+            background-color: #2563EB;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             margin-bottom: 40px;
         }
-        .nagrody p, .nagrody h3 {
-            margin: 10px 0;
+
+        .nagrody h2, .nagrody h3, .nagrody p {
+            margin: 15px 0;
+            color: #F3F4F6;
         }
+
+        .nagrody img {
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
         #quote {
             font-style: italic;
-            font-size: 1.2em;
+            font-size: 1.5em;
             margin: 30px 0;
+            color: #A5B4FC;
         }
+
         .small-text {
             font-size: 0.8em;
-            color: #A5B4FC; /* Lżejszy kolor na mały druczek */
+            color: #93C5FD;
         }
+
         .btn {
-            background-color: #60A5FA; /* Jasnoniebieski przycisk */
+            background-color: #60A5FA;
             color: white;
-            padding: 15px 30px;
+            padding: 15px 40px;
             font-size: 1.2em;
             border: none;
-            border-radius: 10px;
+            border-radius: 50px;
             cursor: pointer;
-            margin-top: 20px;
+            transition: background-color 0.3s ease;
         }
+
         .btn:hover {
-            background-color: #3B82F6; /* Trochę ciemniejszy niebieski na hover */
+            background-color: #3B82F6;
         }
+
         .modal {
-            display: none; /* Ukrywamy modal */
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.7);
             justify-content: center;
             align-items: center;
         }
+
         .modal-content {
             background-color: white;
             color: black;
             padding: 20px;
             border-radius: 10px;
             width: 80%;
-            max-width: 700px;
+            max-width: 600px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
+
         .close-btn {
             background-color: #EF4444;
             color: white;
             padding: 10px 20px;
-            font-size: 1em;
             border: none;
-            border-radius: 10px;
+            border-radius: 50px;
+            font-size: 1em;
             cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .close-btn:hover {
+            background-color: #DC2626;
+        }
+
+        /* Responsywność */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .btn {
+                padding: 10px 30px;
+                font-size: 1em;
+            }
+
+            .modal-content {
+                width: 90%;
+            }
+
+            #quote {
+                font-size: 1.2em;
+            }
         }
     </style>
 </head>
@@ -83,43 +139,44 @@
     <h1>Dziękuję pachołki za wasze folołki&lt;3</h1>
     
     <!-- Cytaty zmieniające się automatycznie -->
-    <p id="quote"></p>
-    
-    <div class="nagrody">
-        <h2>NAGRODA GŁÓWNA:</h2>
-        <p>Uścisk dłoni</p>
-        <img src="nagroda_glowna.png" alt="Nagroda główna - uścisk dłoni" width="300">
+    <div class="container">
+        <p id="quote"></p>
         
-        <h3>NAGRODA DODATKOWA 1:</h3>
-        <p>Pozdrowienia w następnym poście</p>
-        
-        <h3>NAGRODA DODATKOWA 2:</h3>
-        <p>Napiszę ci, że jesteś fajny/fajna</p>
-        
-        <h3>NAGRODA BONUSOWA:</h3>
-        <p>Zrobimy zdjęcie pięknego nocnego nieba razem wspólnie</p>
-        
-        <h3>NAGRODA DLA SPECJALNYCH:</h3>
-        <p>Specjalna nagroda dla specjalnych, której nie napiszę tutaj. Będzie to nasza słodka tajemnica</p>
-        
-        <p class="small-text">*Nagroda dla specjalnych będzie wybierana na podstawie najgorszej odpowiedzi na pytanie "Dlaczego to Ty powinieneś wygrać?".</p>
-    </div>
+        <div class="nagrody">
+            <h2>NAGRODA GŁÓWNA:</h2>
+            <p>Uścisk dłoni</p>
+            <img src="nagroda_glowna.png" alt="Nagroda główna - uścisk dłoni" width="300">
+            
+            <h3>NAGRODA DODATKOWA 1:</h3>
+            <p>Pozdrowienia w następnym poście</p>
+            
+            <h3>NAGRODA DODATKOWA 2:</h3>
+            <p>Napiszę ci, że jesteś fajny/fajna</p>
+            
+            <h3>NAGRODA BONUSOWA:</h3>
+            <p>Zrobimy zdjęcie pięknego nocnego nieba razem wspólnie</p>
+            
+            <h3>NAGRODA DLA SPECJALNYCH:</h3>
+            <p>Specjalna nagroda dla specjalnych, której nie napiszę tutaj. Będzie to nasza słodka tajemnica</p>
+            
+            <p class="small-text">*Nagroda dla specjalnych będzie wybierana na podstawie najgorszej odpowiedzi na pytanie "Dlaczego to Ty powinieneś wygrać?".</p>
+        </div>
 
-    <!-- Przycisk otwierający modal -->
-    <button class="btn" onclick="openModal()">WEŹ UDZIAŁ</button>
+        <!-- Przycisk otwierający modal -->
+        <button class="btn" onclick="openModal()">WEŹ UDZIAŁ</button>
 
-    <!-- Modal z formularzem Google -->
-    <div class="modal" id="formModal">
-        <div class="modal-content">
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd-ujoluco_W3dfx_bC1Ng9jU7_Qrjki4dNOh6uG8wYmvzfnQ/viewform?embedded=true" 
-                    width="100%" height="700" frameborder="0" marginheight="0" marginwidth="0">Ładuję…</iframe>
-            <button class="close-btn" onclick="closeModal()">Zamknij</button>
+        <!-- Modal z formularzem Google -->
+        <div class="modal" id="formModal">
+            <div class="modal-content">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd-ujoluco_W3dfx_bC1Ng9jU7_Qrjki4dNOh6uG8wYmvzfnQ/viewform?embedded=true" 
+                        width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0">Ładuję…</iframe>
+                <button class="close-btn" onclick="closeModal()">Zamknij</button>
+            </div>
         </div>
     </div>
 
     <!-- JavaScript do cytatów i modala -->
     <script>
-        // Cytaty, które będą się zmieniać
         const quotes = [
             "Gdy nie stać Cię na Opla, zrób z wysokości hopla...skok ze spadochronem, fajny sport ekstremalny",
             "Twym samochodem nie jest Opel? Ale z Ciebie CWL. W sensie tablice rejestracyjne pewnie masz na powiat Włocławski",
@@ -153,14 +210,6 @@
         function closeModal() {
             document.getElementById("formModal").style.display = "none";
         }
-
-        // Po załadowaniu formularza, dodaj zdarzenie do pokazania strony z podziękowaniem
-        document.querySelector("iframe").addEventListener("load", function() {
-            const iframeWindow = this.contentWindow;
-            iframeWindow.addEventListener("submit", function() {
-                window.location.href = "dzieki.html"; // Przekierowanie na stronę z podziękowaniem
-            });
-        });
     </script>
 </body>
 </html>
