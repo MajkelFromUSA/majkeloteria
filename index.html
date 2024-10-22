@@ -27,17 +27,55 @@
         .nagrody p, .nagrody h3 {
             margin: 10px 0;
         }
-        iframe {
-            margin-top: 20px;
+        #quote {
+            font-style: italic;
+            font-size: 1.2em;
+            margin: 30px 0;
         }
         .small-text {
             font-size: 0.8em;
             color: #A5B4FC; /* Lżejszy kolor na mały druczek */
         }
-        #quote {
-            font-style: italic;
+        .btn {
+            background-color: #60A5FA; /* Jasnoniebieski przycisk */
+            color: white;
+            padding: 15px 30px;
             font-size: 1.2em;
-            margin: 30px 0;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background-color: #3B82F6; /* Trochę ciemniejszy niebieski na hover */
+        }
+        .modal {
+            display: none; /* Ukrywamy modal */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            color: black;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 700px;
+        }
+        .close-btn {
+            background-color: #EF4444;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -67,11 +105,19 @@
         <p class="small-text">*Nagroda dla specjalnych będzie wybierana na podstawie najgorszej odpowiedzi na pytanie "Dlaczego to Ty powinieneś wygrać?".</p>
     </div>
 
-    <!-- Formularz z Google Forms -->
-    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd-ujoluco_W3dfx_bC1Ng9jU7_Qrjki4dNOh6uG8wYmvzfnQ/viewform?embedded=true" 
-            width="640" height="764" frameborder="0" marginheight="0" marginwidth="0">Ładuję…</iframe>
-    
-    <!-- JavaScript do cytatów i podziękowania -->
+    <!-- Przycisk otwierający modal -->
+    <button class="btn" onclick="openModal()">WEŹ UDZIAŁ</button>
+
+    <!-- Modal z formularzem Google -->
+    <div class="modal" id="formModal">
+        <div class="modal-content">
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd-ujoluco_W3dfx_bC1Ng9jU7_Qrjki4dNOh6uG8wYmvzfnQ/viewform?embedded=true" 
+                    width="100%" height="700" frameborder="0" marginheight="0" marginwidth="0">Ładuję…</iframe>
+            <button class="close-btn" onclick="closeModal()">Zamknij</button>
+        </div>
+    </div>
+
+    <!-- JavaScript do cytatów i modala -->
     <script>
         // Cytaty, które będą się zmieniać
         const quotes = [
@@ -99,29 +145,20 @@
         // Pokaż pierwszy cytat od razu
         window.onload = displayQuote;
 
-        // Obsługa wysyłki formularza z podziękowaniem
-        document.querySelector("iframe").addEventListener("load", function() {
-            const iframeDocument = this.contentDocument || this.contentWindow.document;
+        // Funkcje otwierania i zamykania modala
+        function openModal() {
+            document.getElementById("formModal").style.display = "flex";
+        }
 
-            // Nasłuchiwanie na ewentualne zmiany, np. po wysłaniu formularza
-            iframeDocument.addEventListener("submit", function() {
-                // Tworzymy element podziękowania na całą stronę
-                const fullScreenMessage = document.createElement("div");
-                fullScreenMessage.style.position = "fixed";
-                fullScreenMessage.style.top = "0";
-                fullScreenMessage.style.left = "0";
-                fullScreenMessage.style.width = "100%";
-                fullScreenMessage.style.height = "100%";
-                fullScreenMessage.style.backgroundColor = "black";
-                fullScreenMessage.style.color = "white";
-                fullScreenMessage.style.display = "flex";
-                fullScreenMessage.style.justifyContent = "center";
-                fullScreenMessage.style.alignItems = "center";
-                fullScreenMessage.style.fontSize = "24px";
-                fullScreenMessage.innerHTML = "Gratulacje! Jesteś teraz oficjalnym pachołkiem Majkela! Czekaj na nagrody… albo nie, kto wie ;)";
-                
-                // Dodajemy element do strony
-                document.body.appendChild(fullScreenMessage);
+        function closeModal() {
+            document.getElementById("formModal").style.display = "none";
+        }
+
+        // Po załadowaniu formularza, dodaj zdarzenie do pokazania strony z podziękowaniem
+        document.querySelector("iframe").addEventListener("load", function() {
+            const iframeWindow = this.contentWindow;
+            iframeWindow.addEventListener("submit", function() {
+                window.location.href = "dzieki.html"; // Przekierowanie na stronę z podziękowaniem
             });
         });
     </script>
